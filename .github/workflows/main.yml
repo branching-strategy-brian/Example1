@@ -1,0 +1,11 @@
+name: Branchyng Strategy MAIN
+on:
+  pull_request:
+    types: [ assigned, opened, synchronize ]
+    branches:
+      - main
+
+jobs:
+  build:
+  uses:
+    branching-strategy-brian/DevOps-Workflow/.github/workflows/main.yml@main
