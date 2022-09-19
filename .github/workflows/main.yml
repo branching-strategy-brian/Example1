@@ -7,5 +7,4 @@ on:
 
 jobs:
   build:
-  uses:
-    branching-strategy-brian/DevOps-Workflow/.github/workflows/main.yml@main
+    uses: branching-strategy-brian/DevOps-Workflow/.github/workflows/main.yml@main
