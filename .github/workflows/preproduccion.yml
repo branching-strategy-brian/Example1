@@ -1,7 +1,9 @@
 name: Branchyng Strategy PRE
 on:
-  workflow_dispatch:
-
+  pull_request:
+    types: [ assigned, opened, synchronize ]
+    branches:
+      - preproduccion/*
 jobs:
   Current-Branch:
     runs-on: ubuntu-latest

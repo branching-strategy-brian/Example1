@@ -1,7 +1,9 @@
 name: Branchyng Strategy DEV
 on:
-  workflow_dispatch:
-
+  pull_request:
+    types: [ assigned, opened, synchronize ]
+    branches:
+      - dev/*
 jobs:
   Current-Branch:
     runs-on: ubuntu-latest

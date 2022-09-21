@@ -1,7 +1,9 @@
 name: Branchyng Strategy ESTABLE
 on:
-  workflow_dispatch:
-
+  pull_request:
+    types: [ assigned, opened, synchronize ]
+    branches:
+      - estable/*
 jobs:
   Current-Branch:
     runs-on: ubuntu-latest
