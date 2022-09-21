@@ -1,5 +1,9 @@
 name: Branchyng Strategy DEV
 on:
+  pull_request:
+    types: [ assigned, opened, synchronize ]
+    branches:
+      - dev/*
   workflow_dispatch:
 jobs:
   Current-Branch:
