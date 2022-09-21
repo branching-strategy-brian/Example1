@@ -27,5 +27,3 @@ jobs:
     uses: branching-strategy-brian/DevOps-Workflow/.github/workflows/dev.yml@main
     with: 
       environment: dev/${{needs.Current-Branch.outputs.team}}
-    secrets:
-      TOKEN: ${{ secrets.TOKEN }}
