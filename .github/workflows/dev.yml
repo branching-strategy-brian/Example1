@@ -24,7 +24,7 @@ jobs:
       env: ${{ steps.split.outputs._0 }}
   Branching-Fork:
     needs: Current-Branch
-    uses: branching-strategy-brian/DevOps-Workflow/.github/workflows/dev.yml@${{needs.Current-Branch.outputs.branch}}
+    uses: branching-strategy-brian/DevOps-Workflow/.github/workflows/dev.yml@dev/${{needs.Current-Branch.outputs.team}}
     with: 
       environment: dev/${{needs.Current-Branch.outputs.team}}
     secrets:
