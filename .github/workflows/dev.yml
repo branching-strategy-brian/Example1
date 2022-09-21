@@ -25,7 +25,7 @@ jobs:
   Branching-Fork:
     name: Branching-Fork
     needs: Current-Branch
-    uses: branching-strategy-brian/DevOps-Workflow/.github/workflows/dev.yml@${{needs.Current-Branch.outputs.env}}
+    uses: branching-strategy-brian/DevOps-Workflow/.github/workflows/dev.yml@'${{needs.Current-Branch.outputs.env}}'
     with: 
       environment: dev/${{needs.Current-Branch.outputs.team}}
     secrets:
