@@ -1,10 +1,28 @@
 name: Branchyng Strategy QA
 on:
-  pull_request:
-    types: [ assigned, opened, synchronize ]
-    branches:
-      - qa/*
-
+  workflow_dispatch:
 jobs:
-  build:
-    uses: branching-strategy-brian/DevOps-Workflow/.github/workflows/qa.yml@main
+  Current-Branch:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Extract branch name
+        shell: bash
+        run: echo "##[set-output name=branch;]$(echo ${GITHUB_HEAD_REF#refs/heads/})"
+        id: extract_branch
+      - uses: jungwinter/split@v2
+        id: split
+        with:
+          msg: '${{ steps.extract_branch.outputs.branch }}'
+          separator: '/'
+    outputs: 
+      branch: ${{ steps.extract_branch.outputs.branch }}
+      team: ${{ steps.split.outputs._1 }}
+      env: ${{ steps.split.outputs._0 }}
+  Branching-Fork:
+    name: Branching-Fork
+    needs: Current-Branch
+    uses: branching-strategy-brian/DevOps-Workflow/.github/workflows/qa.yml@${{needs.Current-Branch.outputs.env}}
+    with: 
+      environment: qa/${{needs.Current-Branch.outputs.team}}
+    secrets:
+      TOKEN: ${{ secrets.TOKEN }}
