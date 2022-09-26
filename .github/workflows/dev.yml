@@ -1,10 +1,10 @@
 name: Branchyng Strategy DEV
 on:
-  pull_request:
+  push:
     types: [ assigned, opened, synchronize ]
     branches:
       - dev/*
-  workflow_dispatch:
+      - dev
 jobs:
   Current-Branch:
     runs-on: ubuntu-latest
@@ -25,8 +25,4 @@ jobs:
   Branching-Fork:
     name: Branching-Fork
     needs: Current-Branch
-    uses: branching-strategy-brian/DevOps-Workflow/.github/workflows/dev.yml@main
-    with: 
-      environment: dev/${{needs.Current-Branch.outputs.team}}
-    secrets:
-      TOKEN: ${{ secrets.TOKEN }}
+    run: echo ${{needs.Current-Branch.outputs.team}}
