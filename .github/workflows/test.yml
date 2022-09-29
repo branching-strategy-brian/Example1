@@ -38,4 +38,4 @@ jobs:
     steps:
       - name: Test Current-Branch
         shell: bash
-        run: echo ${{needs.Current-Branch.outputs.actor}}
+        run: echo ${{needs.Current-Branch.outputs.proyect}}
