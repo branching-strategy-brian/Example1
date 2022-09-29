@@ -1,0 +1,34 @@
+name: Branchyng Strategy DEV
+on:
+  push:
+    branches:
+      - test
+      - test/*
+  
+jobs:
+  Current-Branch:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Extract branch name
+        shell: bash
+        run: echo "##[set-output name=branch;]$(echo ${GITHUB_HEAD_REF#refs/heads/})"
+        id: extract_branch
+      - name: Extract actor
+        shell: bash
+        run: echo "##[set-output name=branch;]$(echo ${GITHUB_ACTOR#refs/heads/})"
+        id: extract_actor
+      - uses: jungwinter/split@v2
+        id: split
+        with:
+          msg: '${{ steps.extract_branch.outputs.branch }}'
+          separator: '/'
+    outputs: 
+      branch: ${{ steps.extract_branch.outputs.branch }}
+      proyect: ${{ steps.split.outputs._1 }}
+      actor: ${{ steps.extract_actor.outputs.branch }}
+  Sync-Branch:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Test Current-Branch
+        shell: bash
+        run: echo ${{needs.Current-Branch.outputs.actor}}
