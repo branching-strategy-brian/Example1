@@ -11,7 +11,7 @@ jobs:
     steps:
       - name: Extract branch name
         shell: bash
-        run: echo "##[set-output name=branch;]$(echo ${GITHUB_HEAD_REF#refs/heads/})"
+        run: echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
         id: extract_branch
       - name: Echo Extract branch name
         shell: bash
@@ -20,7 +20,7 @@ jobs:
         shell: bash
         run: echo "##[set-output name=actor;]$(echo ${GITHUB_ACTOR#refs/heads/})"
         id: extract_actor
-      - name: Echo Extract branch name
+      - name: Echo Extract actor name
         shell: bash
         run: echo ${{ steps.extract_actor.outputs.actor }}
       - uses: jungwinter/split@v2
