@@ -13,10 +13,16 @@ jobs:
         shell: bash
         run: echo "##[set-output name=branch;]$(echo ${GITHUB_HEAD_REF#refs/heads/})"
         id: extract_branch
+      - name: Echo Extract branch name
+        shell: bash
+        run: echo ${{ steps.extract_branch.outputs.branch }}
       - name: Extract actor
         shell: bash
         run: echo "##[set-output name=actor;]$(echo ${GITHUB_ACTOR#refs/heads/})"
         id: extract_actor
+      - name: Echo Extract branch name
+        shell: bash
+        run: echo ${{ steps.extract_actor.outputs.actor }}
       - uses: jungwinter/split@v2
         id: split
         with:
