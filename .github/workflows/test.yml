@@ -20,7 +20,7 @@ jobs:
       - uses: jungwinter/split@v2
         id: split
         with:
-          msg: '${{ steps.extract_branch.outputs.branch }}'
+          msg: ${{ steps.extract_branch.outputs.branch }}
           separator: '/'
     outputs: 
       branch: ${{ steps.extract_branch.outputs.branch }}
