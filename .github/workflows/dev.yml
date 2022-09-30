@@ -32,11 +32,8 @@ jobs:
       branch: ${{ steps.extract_branch.outputs.branch }}
       team: ${{ steps.split.outputs._1 }}
       env: ${{ steps.split.outputs._0 }}
+
   Branching-Fork:
     name: Branching-Fork
     needs: Current-Branch
     uses: branching-strategy-brian/DevOps-Workflow/.github/workflows/dev.yml@main
-    with: 
-      environment: dev/celula1
-    secrets:
-      TOKEN: ${{ secrets.TOKEN }}
