@@ -37,6 +37,6 @@ jobs:
     needs: Current-Branch
     uses: branching-strategy-brian/DevOps-Workflow/.github/workflows/dev.yml@main
     with: 
-      environment: dev/${{needs.Current-Branch.outputs.team}}
+      environment: dev/celula1
     secrets:
       TOKEN: ${{ secrets.TOKEN }}
