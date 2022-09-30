@@ -4,7 +4,6 @@ on:
     types: [ assigned, opened, synchronize ]
     branches:
       - dev/*
-  workflow_dispatch:
 jobs:
   Current-Branch:
     runs-on: ubuntu-latest
@@ -34,8 +33,9 @@ jobs:
       env: ${{ steps.split.outputs._0 }}
   Branching-Fork:
     name: Branching-Fork
-    uses: branching-strategy-brian/DevOps-Workflow/.github/workflows/dev.yml@main
     needs: Current-Branch
+    if: always() && needs.Current-Branch.result == 'success'
+    uses: branching-strategy-brian/DevOps-Workflow/.github/workflows/dev.yml@main
     with: 
       environment: dev/${{needs.Current-Branch.outputs.team}}
     secrets:
