@@ -5,36 +5,12 @@ on:
     types: [ assigned, opened, synchronize ]
     branches:
       - dev/*
+env:
+  GITHUB_TOKEN: ${{ secrets.TOKEN }}
+  CELULA: ${{ secrets.CELULA }}
 jobs:
-  Current-Branch:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Extract branch name
-        shell: bash
-        run: echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
-        id: extract_branch
-      - name: Echo Extract branch name
-        shell: bash
-        run: echo ${{ steps.extract_branch.outputs.branch }}
-      - name: Extract actor
-        shell: bash
-        run: echo "##[set-output name=actor;]$(echo ${GITHUB_ACTOR#refs/heads/})"
-        id: extract_actor
-      - name: Echo Extract actor name
-        shell: bash
-        run: echo ${{ steps.extract_actor.outputs.actor }}
-      - uses: jungwinter/split@v2
-        id: split
-        with:
-          msg: '${{ steps.extract_branch.outputs.branch }}'
-          separator: '/'
-    outputs: 
-      branch: ${{ steps.extract_branch.outputs.branch }}
-      team: ${{ steps.split.outputs._1 }}
-      env: ${{ steps.split.outputs._0 }}
   Branching-Fork:
     name: Branching-Fork
-    if: always() && needs.Current-Branch.result == 'success'
     uses: branching-strategy-brian/DevOps-Workflow/.github/workflows/dev.yml@main
     with: 
-      environment: 'dev/${{needs.Current-Branch.outputs.team}}'
+      environment: 'dev/${{ env.TOKEN }}
