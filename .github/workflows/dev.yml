@@ -34,7 +34,6 @@ jobs:
       env: ${{ steps.split.outputs._0 }}
   Branching-Fork:
     name: Branching-Fork
-    needs: Current-Branch
     if: always() && needs.Current-Branch.result == 'success'
     uses: branching-strategy-brian/DevOps-Workflow/.github/workflows/dev.yml@main
     with: 
