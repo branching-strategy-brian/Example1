@@ -37,6 +37,6 @@ jobs:
     if: always() && needs.Current-Branch.result == 'success'
     uses: branching-strategy-brian/DevOps-Workflow/.github/workflows/dev.yml@main
     with: 
-      environment: dev/celula1
+      environment: 'dev/${{needs.Current-Branch.outputs.team}}'
     secrets:
-      TOKEN: ${{ secrets.TOKEN }}
+      TOKEN: '${{ secrets.TOKEN }}'
