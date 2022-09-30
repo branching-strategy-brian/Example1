@@ -6,6 +6,31 @@ on:
       - dev/*
   workflow_dispatch:
 jobs:
-  Branching-Fork:
-    name: Branching-Fork
-    uses: branching-strategy-brian/DevOps-Workflow/.github/workflows/dev.yml@main
+  Branch-Fork:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Extract branch name
+        shell: bash
+        run: echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
+        id: extract_branch
+      - name: Echo Extract branch name
+        shell: bash
+        run: echo ${{ steps.extract_branch.outputs.branch }}
+      - name: Extract actor
+        shell: bash
+        run: echo "##[set-output name=actor;]$(echo ${GITHUB_ACTOR#refs/heads/})"
+        id: extract_actor
+      - name: Echo Extract actor name
+        shell: bash
+        run: echo ${{ steps.extract_actor.outputs.actor }}
+      - uses: jungwinter/split@v2
+        id: split
+        with:
+          msg: '${{ steps.extract_branch.outputs.branch }}'
+          separator: '/'
+      - name: branchyng 
+        uses: branching-strategy-brian/DevOps-Workflow/.github/workflows/dev.yml@main
+        with: 
+          environment: dev/${{ steps.split.outputs._1 }}
+        secrets:
+          TOKEN: ${{ secrets.TOKEN }}
