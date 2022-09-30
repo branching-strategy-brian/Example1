@@ -6,7 +6,7 @@ on:
       - dev/*
   workflow_dispatch:
 jobs:
-  Branch-Fork:
+  Current-Branch:
     runs-on: ubuntu-latest
     steps:
       - name: Extract branch name
@@ -28,9 +28,15 @@ jobs:
         with:
           msg: '${{ steps.extract_branch.outputs.branch }}'
           separator: '/'
-      - name: branchyng 
-        uses: branching-strategy-brian/DevOps-Workflow/.github/workflows/dev.yml@main
-        with: 
-          environment: dev/${{ steps.split.outputs._1 }}
-        secrets:
-          TOKEN: ${{ secrets.TOKEN }}
+    outputs: 
+      branch: ${{ steps.extract_branch.outputs.branch }}
+      team: ${{ steps.split.outputs._1 }}
+      env: ${{ steps.split.outputs._0 }}
+  Branching-Fork:
+    name: Branching-Fork
+    uses: branching-strategy-brian/DevOps-Workflow/.github/workflows/dev.yml@main
+    needs: Current-Branch
+    with: 
+      environment: dev/${{needs.Current-Branch.outputs.team}}
+    secrets:
+      TOKEN: ${{ secrets.TOKEN }}
